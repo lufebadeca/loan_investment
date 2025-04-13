@@ -1,5 +1,5 @@
 # Proyector de créditos de vivienda e inversiones
-Repository for excersises of Platzi practic course in Javascript
+Proyecta tus finanzas con este aplicativo
 
 ## Calculadora de crédito de vivienda
 

@@ -1,3 +1,8 @@
+//FUTURE SOURCES:
+//https://suameca.banrep.gov.co/estadisticas-economicas/#/informacionSerie/59/Tasas%20de%20inter%C3%A9s%20de%20pol%C3%ADtica%20monetaria
+//https://www.bancolombia.com/personas/creditos/vivienda/credito-hipotecario-para-comprar-vivienda
+
+
 const fullAmountBox = document.getElementById("full-price");
 const fullAmount = fullAmountBox.value;
 
