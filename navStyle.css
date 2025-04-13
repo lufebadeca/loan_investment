@@ -21,6 +21,11 @@ body{
     border-bottom: 2px solid var(--dark-green);
     margin: 0 0 8px 0;
 }
+
+.logo{
+    width: 25px;
+}
+
 nav .logo:hover{
     transform: scale(1.1);
     transition: transform 0.6s ease-in-out;
@@ -51,6 +56,12 @@ nav .navbar-left {
     align-items: center;
     margin-left: 4px;
 }
+
+.navbar-right{
+    display: flex;
+    align-items: center;
+}
+
 .navbar-right ul {
     display: flex;
     align-items: center;
