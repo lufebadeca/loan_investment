@@ -1,4 +1,22 @@
+const fullAmountBox = document.getElementById("full-price");
+const fullAmount = fullAmountBox.value;
+
 var activeTable=0;
+
+function formatNumberInput(input) {
+  // Quita todo lo que no sea número
+  let raw = input.value.replace(/\D/g, '');
+  // Aplica formato de miles (ej: 1000000 -> 1.000.000)
+  input.value = raw.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+function getCleanNumber(input) {
+  return parseInt(input.value.replace(/\./g, ''), 10);
+}
+
+//format 1 time
+formatNumberInput(fullAmountBox);
+
 function genera_tabla() {
   function fillRow(first, second, third, fourth, fifth, row){
     const rowList = [first, second, third, fourth, fifth];
@@ -16,8 +34,6 @@ function genera_tabla() {
     previousTable.remove();
   }
 
-  const fullAmountBox = document.getElementById("full-price");
-  const fullAmount = fullAmountBox.value;
   const fundedPercBox = document.getElementById("funded-percentage");
   const fundedPerc = fundedPercBox.value;
 
@@ -56,17 +72,21 @@ function genera_tabla() {
   var tabla   = document.createElement("table");
   var tblBody = document.createElement("tbody");
   var headersRow  = document.createElement("tr");  // creates the first row
-  fillRow("Installment", "Installment amount", "Interest amount", "Deposit to debt", "Balance", headersRow);
+  fillRow("Cuota #", "Cuota ($)", "Aporte a interés ($)", "Aporte a la deuda ($)", "Saldo", headersRow);
 
   // agrega la row al final de la tabla (al final del elemento tblbody)
   tblBody.appendChild(headersRow);
+
+  // crea un array vacio:
+
+  let data = [];
   
     // Crea las celdas de numeros 
   for (var i = 0; i <= rowsNumber; i++) {
     var row = document.createElement("tr");  //creates the first data row
     if (i==0){
       const bal = new Intl.NumberFormat('es-MX').format(balance.toFixed(2));
-      fillRow(`Month ${i}`, "--","--","--", bal, row);
+      fillRow(`Mes ${i}`, "--","--","--", bal, row);
     }
     else{
       interestAmount = interestME * balance;
@@ -80,7 +100,10 @@ function genera_tabla() {
       const c3 = new Intl.NumberFormat('es-MX').format(deposit.toFixed(2));
       const c4 = new Intl.NumberFormat('es-MX').format(Math.abs(balance.toFixed(2)) );
 
-      fillRow(`Month ${i}`,c1,c2,c3,c4, row);
+      fillRow(`Mes ${i}`,c1,c2,c3,c4, row);
+
+      // agrega la data del mes para grafico:
+      data.push({interes: interestAmount, abono: deposit});
     }
   // agrega la row al final de la tabla (al final del elemento tblbody)
   tblBody.appendChild(row);
@@ -101,4 +124,44 @@ function genera_tabla() {
   tabla.setAttribute("border", "2");
   tabla.setAttribute("id", "table1");
   activeTable=1;
+
+
+  //PARTE PARA LA GRAFICA
+  const svg = document.getElementById("chart");
+  const chartWidth = 400;
+  const chartHeight = 200;
+  const barWidth = 20;
+  const spacing = 5;
+  const maxTotal = Math.max(...data.map(d => d.interes + d.abono));
+
+  data.forEach((item, i) => {
+    const totalHeight = chartHeight - 20;
+    const x = 40 + i * (barWidth + spacing);
+
+    // Calcular alturas proporcionadas
+    const total = item.interes + item.abono;
+    const interesHeight = (item.interes / maxTotal) * totalHeight;
+    const abonoHeight = (item.abono / maxTotal) * totalHeight;
+
+    const yInteres = chartHeight - interesHeight;
+    const yAbono = chartHeight - interesHeight - abonoHeight;
+
+    // Rectángulo de Abono (verde)
+    const rectAbono = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rectAbono.setAttribute("x", x);
+    rectAbono.setAttribute("y", yAbono);
+    rectAbono.setAttribute("width", barWidth);
+    rectAbono.setAttribute("height", abonoHeight);
+    rectAbono.setAttribute("fill", "#8cb21b");
+    svg.appendChild(rectAbono);
+
+    // Rectángulo de Interés (azul)
+    const rectInteres = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rectInteres.setAttribute("x", x);
+    rectInteres.setAttribute("y", yInteres);
+    rectInteres.setAttribute("width", barWidth);
+    rectInteres.setAttribute("height", interesHeight);
+    rectInteres.setAttribute("fill", "#3021eb");
+    svg.appendChild(rectInteres);
+  });
 }

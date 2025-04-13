@@ -1,7 +1,9 @@
 :root{
+    --backcolor: #e5f8e8;
     --hospital-green: #ACD9B2;
     --very-light-pink: gray;
     --text-input-field: #F7F7F7;
+    --dark-green: rgb(20, 99, 41);
     --lg: 18px;
     --sm: 14px;
     --md: 16px; 
@@ -11,13 +13,19 @@ body{
     margin: 0;
     background: white;
 }
-nav{
+.navbar{
+    background-color: #ACD9B2;
     display: flex;
     justify-content: space-between;
     padding: 8px 24px;
-    border-bottom: 2px solid var(--very-light-pink);
-    margin: 8px 0 8px 0;
+    border-bottom: 2px solid var(--dark-green);
+    margin: 0 0 8px 0;
 }
+nav .logo:hover{
+    transform: scale(1.1);
+    transition: transform 0.6s ease-in-out;
+}
+
 nav ul {
     list-style: none;
     margin: 0;
@@ -28,14 +36,15 @@ nav ul {
 }
 nav ul a{
     text-decoration: none;
-    color: var(--very-light-pink);
-    border: 1px solid white;
+    color: black;
+    font-weight: bold;
+    border: 1px solid var(--hospital-green);
     border-radius: 5px;
     padding: 8px;
 }
-nav ul a:hover{
-    color: var(--hospital-green);
-    border: 1px solid var(--hospital-green);
+nav ul li:hover a{
+    /* color: var(--hospital-green); */
+    border: 1px solid var(--dark-green);
 }
 nav .navbar-left {
     display:flex;
@@ -67,14 +76,7 @@ nav .navbar-left img {
     width: 30px;
     display: none;
 }
-button{
-    background:rgb(234, 234, 234);
-    border: 1px solid black;
-}
-button:hover{
-    font-weight: bold;
-    background: var(--text-input-field);
-}
+
 @media (max-width: 900px){
     body{width: 100vw;}
     section img{width: 100vw;}
@@ -87,19 +89,25 @@ button:hover{
     margin: 0;
     padding: 0;
     align-items: start;
+    gap: 10px
     }
-    nav .yard-sale {
+    nav .logo {
         width: 20px;
         margin: 4px;
         padding: 2px;
     }
+
+    nav .logo:hover{
+        transform: scale(1.1);
+        transition: transform 0.6s ease-in-out;
+    }
+
     nav .navbar-left li:nth-child(2){
         margin-left: 0;
     }
-    nav ul a{
+    nav ul li{
         text-decoration: none;
         color: var(--very-light-pink);
-        border: 1px solid white;
         border-radius: 5px;
         padding: 0px;
     }

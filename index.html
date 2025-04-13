@@ -4,22 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Javascript final Project</title>
+    <link rel="stylesheet" href="debt.css">
     <link rel="stylesheet" href="navStyle.css">
-    <link rel="stylesheet" href="index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
+    <title>Loan simulator</title>
 </head>
-    <nav>
+<body>
+    <nav class="navbar">
         <div class="navbar-left">
-            <img class="menu" src="./menu.png" alt="menu-logo">
             <ul>
-                <a href="./"><img class="yard-sale" src="./platzi.png" alt="platzi-logo"></a>
-                <li><a href="figuras.html">Geometric Figures</a></li>
-                <li><a href="average.html">Averages</a></li>
-                <li><a href="salaries.html">Salary analysis</a></li>
-                <li><a href="debt.html">Loan simulator</a></li>
+                <a href="./"><img class="logo" src="./loan-logo.png" alt="platzi-logo"></a>
+                <li><a href="index.html">Crédito hipotecario</a></li>
+                <li><a href="invest.html">Inversiones</a></li>
             </ul>
         </div>
 
@@ -30,10 +28,29 @@
             </ul>
         </div>
     </nav>
-    <section>
-        <h1>Welcome to my final project on Platzi JS course</h1>
-        <p>Click one of the link in the above menu to continue...</p>
-        <section><img src="./background.JPG" alt="background.jpg"></section>
-    </section>    
+
+    <section class="module-body" id="doc-body">
+        <h1>Proyección de crédito</h1>
+        <p>En este módulo puedes generar la proyección de las cuotas para tu crédito hipotecario y su tabla de amorización.</p>
+        <p>Por favor ingrese la cantidad, la tasa de interés efectiva anual y el periodo del préstamo.</p>
+        <section class="inner-box">
+            <label for="full-price">Precio de la vivienda:</label>
+            <input type="text" id="full-price" value=139900000 required onchange="formatNumberInput(this)" oninput="formatNumberInput(this)">
+            <label for="funded-percentage" >Porcentaje a financiar (%):</label><input type="number" id="funded-percentage" value=70 required>
+            <label for="funded-amount">Cantidad a financiar:</label><input type="text" id="loan-amount" disabled="true" required>
+            <p id="blank"></p>
+            <label for="interest-rateAE">Interés efectivo anual (%):</label><input type="number" id="interest-rateAE" value=6.8 required>
+            <label for="interest-rateME">Interés efectivo mensual (%):</label><input type="number" id="interest-rateME" disabled="true">
+            <label for="years">Años de crédito:</label><input type="number" id="years" value="15" required>
+            <label for="months">Meses/cuotas:</label><input type="number" id="months" disabled="true">
+            <div class="installment-result">
+                <label for="installment">Cuota fija:</label><input type="text" id="installment" disabled="true">
+            </div>
+        </section>
+        <input type="button" value="Proyectar crédito" onclick="genera_tabla()" id="table-button">
+    </section>
+
+
+    <script src="./debt.js"></script>
 </body>
 </html>
